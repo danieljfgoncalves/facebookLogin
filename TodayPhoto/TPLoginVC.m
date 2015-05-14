@@ -10,6 +10,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #include <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import "TodayPicVC.h"
 
 @interface TPLoginVC () <FBSDKLoginButtonDelegate>
 
@@ -42,7 +43,41 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 {
     [PFFacebookUtils logInInBackgroundWithAccessToken:result.token block:^(PFUser *user, NSError *error){
     
-        
+        if (!user) {
+            NSLog(@"Uh oh. There was an error logging in.");
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Login Failed"
+                                                                message:@"Please "
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Please Try Again"
+                                                      otherButtonTitles:nil];
+            [alertView show];
+            
+        } else {
+            NSLog(@"User logged in through Facebook!");
+            
+            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                 if (!error) {
+                     NSLog(@"fetched user:%@", result);
+                     
+                     user[@"fullname"] = result[@"name"];
+                     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                         if (succeeded) {
+                             // The object has been saved.
+                             NSLog(@"Saved to Parse.");
+                         } else {
+                             // There was a problem, check error.description
+                             NSLog(@"%@", error.description);
+                         }
+                     }];
+                     
+                 }
+             }];
+            
+            TodayPicVC *todayPicVC = [[TodayPicVC alloc]init];
+            [self presentViewController:todayPicVC animated:YES completion:nil];
+        }
         
     }];
 }
