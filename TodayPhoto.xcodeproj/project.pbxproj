@@ -17,7 +17,6 @@
 		E43FA7531B03B05D00E13638 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43FA74D1B03B05D00E13638 /* Bolts.framework */; };
 		E43FA7541B03B05D00E13638 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43FA74E1B03B05D00E13638 /* Parse.framework */; };
 		E43FA7551B03B05D00E13638 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43FA74F1B03B05D00E13638 /* ParseCrashReporting.framework */; };
-		E43FA7561B03B05D00E13638 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43FA7501B03B05D00E13638 /* ParseFacebookUtils.framework */; };
 		E43FA7571B03B05D00E13638 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43FA7511B03B05D00E13638 /* ParseFacebookUtilsV4.framework */; };
 		E43FA7581B03B05D00E13638 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43FA7521B03B05D00E13638 /* ParseUI.framework */; };
 		E43FA75A1B03B0F900E13638 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43FA7591B03B0F900E13638 /* AudioToolbox.framework */; };
@@ -64,7 +63,6 @@
 		E43FA74D1B03B05D00E13638 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		E43FA74E1B03B05D00E13638 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		E43FA74F1B03B05D00E13638 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
-		E43FA7501B03B05D00E13638 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		E43FA7511B03B05D00E13638 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
 		E43FA7521B03B05D00E13638 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		E43FA7591B03B0F900E13638 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -106,7 +104,6 @@
 				E43FA7751B03C25600E13638 /* FBSDKLoginKit.framework in Frameworks */,
 				E43FA7541B03B05D00E13638 /* Parse.framework in Frameworks */,
 				E43FA7551B03B05D00E13638 /* ParseCrashReporting.framework in Frameworks */,
-				E43FA7561B03B05D00E13638 /* ParseFacebookUtils.framework in Frameworks */,
 				E43FA7531B03B05D00E13638 /* Bolts.framework in Frameworks */,
 				E43FA7571B03B05D00E13638 /* ParseFacebookUtilsV4.framework in Frameworks */,
 			);
@@ -235,7 +232,6 @@
 				E43FA74D1B03B05D00E13638 /* Bolts.framework */,
 				E43FA74E1B03B05D00E13638 /* Parse.framework */,
 				E43FA74F1B03B05D00E13638 /* ParseCrashReporting.framework */,
-				E43FA7501B03B05D00E13638 /* ParseFacebookUtils.framework */,
 				E43FA7511B03B05D00E13638 /* ParseFacebookUtilsV4.framework */,
 				E43FA7521B03B05D00E13638 /* ParseUI.framework */,
 			);
@@ -550,6 +546,7 @@
 				E43FA7441B03AE2100E13638 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E43FA7451B03AE2100E13638 /* Build configuration list for PBXNativeTarget "TodayPhotoTests" */ = {
 			isa = XCConfigurationList;
@@ -558,6 +555,7 @@
 				E43FA7471B03AE2100E13638 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

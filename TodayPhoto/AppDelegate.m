@@ -10,12 +10,15 @@
 #import <Parse/Parse.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -26,6 +29,11 @@
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
+    // Facebook User Management
+//    [PFFacebookUtils logInInBackgroundWithReadPermissions:nil block:^(PFUser *user, NSError *error) {
+//        
+//    }];
     
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application

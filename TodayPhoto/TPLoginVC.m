@@ -9,8 +9,9 @@
 #import "TPLoginVC.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#include <ParseFacebookUtilsV4/PFFacebookUtils.h>
 
-@interface TPLoginVC ()
+@interface TPLoginVC () <FBSDKLoginButtonDelegate>
 
 @end
 
@@ -20,14 +21,34 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    // Test PFObject
 //    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
 //    testObject[@"foo"] = @"bar";
 //    [testObject saveInBackground];
     
     // Facebook Login Button
-    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
-//    loginButton.center = self.view.center;
+    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc]init];
+    loginButton.delegate = self;
     [self.view addSubview:loginButton];
+    // Set Button Position
+    loginButton.center = CGPointMake(self.view.center.x, 400.0f);
+    
+}
+
+
+- (void)  loginButton:(FBSDKLoginButton *)loginButton
+didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
+                error:(NSError *)error
+{
+    [PFFacebookUtils logInInBackgroundWithAccessToken:result.token block:^(PFUser *user, NSError *error){
+    
+        
+        
+    }];
+}
+
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton
+{
     
 }
 
