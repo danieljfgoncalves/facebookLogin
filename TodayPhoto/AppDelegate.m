@@ -12,6 +12,9 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 
+#import "TPLoginVC.h"
+#import "TestVC.h"
+
 @interface AppDelegate ()
 
 @end
@@ -23,6 +26,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    //Testing Purpose
+    
+    
     // Initialize Parse.
     [Parse setApplicationId:@"dAHO0LlOQpm84tH0O8guaLS8XmzGUYfRMqs0Z72Y"
                   clientKey:@"gDfwDKf4kq5ErHGgrcNfydCWLZSieyG1J0pWrp9M"];
@@ -33,7 +39,11 @@
     // Parse + Facebook integration
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
 
-    
+    // Set Window & RootViewController
+    TPLoginVC *loginVC = [[TPLoginVC alloc]init];
+    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
+    self.window.rootViewController = loginVC;
+    [self.window makeKeyAndVisible];
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];

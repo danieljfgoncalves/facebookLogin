@@ -10,13 +10,21 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #include <ParseFacebookUtilsV4/PFFacebookUtils.h>
-#import "TestVC.h"
 
 @interface TPLoginVC () <FBSDKLoginButtonDelegate>
 
 @end
 
 @implementation TPLoginVC
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,12 +39,19 @@
     
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Facebook Login Button
+
 - (void)  loginButton:(FBSDKLoginButton *)loginButton
 didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                 error:(NSError *)error
 {
     [PFFacebookUtils logInInBackgroundWithAccessToken:result.token block:^(PFUser *user, NSError *error){
-    
+        
         if (!user) {
             NSLog(@"Uh oh. There was an error logging in.");
             
@@ -53,13 +68,13 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me?fields=id,name,picture.height(400)" parameters:nil]
              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                  if (!error) {
-//                     NSLog(@"fetched user:%@", result);
+                     //                     NSLog(@"fetched user:%@", result);
                      
                      // Retrieve wanted Facebook Data to Parse Cloud
-                        // Users Full Name
+                     // Users Full Name
                      user[@"fullname"] = result[@"name"];
                      
-                        // Profile Picture
+                     // Profile Picture
                      NSDictionary *resultPicture = result[@"picture"];
                      NSDictionary *resultPicData = resultPicture[@"data"];
                      NSURL *resultPicDataUrl = resultPicData[@"url"];
@@ -71,8 +86,8 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                              NSLog(@"Saved to Parse.");
                              
                              // Present next View Controller
-                             TestVC *todayPicVC = [[TestVC alloc]init];
-                             [self presentViewController:todayPicVC animated:YES completion:nil];
+                             self.camVC = [[CamViewController alloc]init];
+                             [self presentViewController:self.camVC animated:YES completion:nil];
                              
                          } else {
                              // There was a problem, check error.
@@ -90,11 +105,6 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 - (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton
 {
     
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

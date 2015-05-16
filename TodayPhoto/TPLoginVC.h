@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "CamViewController.h"
 
 @interface TPLoginVC : UIViewController
+
+@property (strong, nonatomic) CamViewController *camVC;
 
 @end
 

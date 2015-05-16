@@ -10,4 +10,9 @@
 
 @interface TestVC : UIViewController
 
+// Properties
+
+@property (strong, nonatomic)UIImage *capturedImage;
+
+
 @end
