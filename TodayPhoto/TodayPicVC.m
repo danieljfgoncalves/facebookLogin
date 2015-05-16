@@ -7,6 +7,7 @@
 //
 
 #import "TodayPicVC.h"
+#import <Parse/Parse.h>
 
 @interface TodayPicVC ()
 
@@ -17,10 +18,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
-    UILabel *testLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 100, 320, 44)];
-    testLabel.text = @"testing";
-    [self.view addSubview:testLabel];
+    
+    // Subviews & Styling
+    self.view.backgroundColor = [UIColor lightGrayColor];
+    UILabel *userNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 100, 320, 44)];
+    [self.view addSubview:userNameLabel];
+    UIImageView *profilePictureView = [[UIImageView alloc]initWithFrame:CGRectMake(60, 200, 200, 200)];
+    [self.view addSubview:profilePictureView];
+    // Querying the Parse Cloud
+    PFQuery *userQuery = [PFUser query];
+    [userQuery selectKeys:@[@"fullname", @"profilePic"]];
+    [userQuery findObjectsInBackgroundWithBlock:^(NSArray *queryResults, NSError *error){
+        if (!error) {
+//            NSLog(@"%@", queryResults);
+            
+            // Fetch & assign full name to label
+            NSString *fullname = [queryResults[0] objectForKey:@"fullname"];
+            NSLog(@"%@", fullname);
+            userNameLabel.text = fullname;
+            
+            // Fetch, convert & assign image
+            NSURL *picURL = [NSURL URLWithString:[queryResults[0] objectForKey:@"profilePic"]];
+            NSData *picData = [NSData dataWithContentsOfURL:picURL];
+            profilePictureView.image = [UIImage imageWithData:picData];
+            
+        } else {
+            NSLog(@"Error: %@", error.description);
+        }
+    }];
+    
     
 }
 

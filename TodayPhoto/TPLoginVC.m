@@ -47,7 +47,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
             NSLog(@"Uh oh. There was an error logging in.");
             
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Login Failed"
-                                                                message:@"Please "
+                                                                message:@"Please login Again."
                                                                delegate:self
                                                       cancelButtonTitle:@"Please Try Again"
                                                       otherButtonTitles:nil];
@@ -56,16 +56,27 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         } else {
             NSLog(@"User logged in through Facebook!");
             
-            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me?fields=id,name,picture.height(400)" parameters:nil]
              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                  if (!error) {
-                     NSLog(@"fetched user:%@", result);
+//                     NSLog(@"fetched user:%@", result);
                      
                      user[@"fullname"] = result[@"name"];
+                     
+                     // Profile Picture
+                     NSDictionary *resultPicture = result[@"picture"];
+                     NSDictionary *resultPicData = resultPicture[@"data"];
+                     NSURL *resultPicDataUrl = resultPicData[@"url"];
+                     user[@"profilePic"] = resultPicDataUrl;
+                     
                      [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                          if (succeeded) {
                              // The object has been saved.
                              NSLog(@"Saved to Parse.");
+                             
+                             TodayPicVC *todayPicVC = [[TodayPicVC alloc]init];
+                             [self presentViewController:todayPicVC animated:YES completion:nil];
+                             
                          } else {
                              // There was a problem, check error.description
                              NSLog(@"%@", error.description);
@@ -74,9 +85,6 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                      
                  }
              }];
-            
-            TodayPicVC *todayPicVC = [[TodayPicVC alloc]init];
-            [self presentViewController:todayPicVC animated:YES completion:nil];
         }
         
     }];
