@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 Daniel J Goncalves. All rights reserved.
 //
 
-#import "TodayPicVC.h"
+#import "TestVC.h"
 #import <Parse/Parse.h>
 
-@interface TodayPicVC ()
+@interface TestVC ()
 
 @end
 
-@implementation TodayPicVC
+@implementation TestVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,6 +25,8 @@
     [self.view addSubview:userNameLabel];
     UIImageView *profilePictureView = [[UIImageView alloc]initWithFrame:CGRectMake(60, 200, 200, 200)];
     [self.view addSubview:profilePictureView];
+    
+    
     // Querying the Parse Cloud
     PFQuery *userQuery = [PFUser query];
     [userQuery selectKeys:@[@"fullname", @"profilePic"]];
@@ -41,7 +43,6 @@
             NSURL *picURL = [NSURL URLWithString:[queryResults[0] objectForKey:@"profilePic"]];
             NSData *picData = [NSData dataWithContentsOfURL:picURL];
             profilePictureView.image = [UIImage imageWithData:picData];
-            
         } else {
             NSLog(@"Error: %@", error.description);
         }

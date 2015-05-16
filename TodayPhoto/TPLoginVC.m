@@ -10,7 +10,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #include <ParseFacebookUtilsV4/PFFacebookUtils.h>
-#import "TodayPicVC.h"
+#import "TestVC.h"
 
 @interface TPLoginVC () <FBSDKLoginButtonDelegate>
 
@@ -22,11 +22,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    // Test PFObject
-//    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-//    testObject[@"foo"] = @"bar";
-//    [testObject saveInBackground];
-    
     // Facebook Login Button
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc]init];
     loginButton.delegate = self;
@@ -35,7 +30,6 @@
     loginButton.center = CGPointMake(self.view.center.x, 400.0f);
     
 }
-
 
 - (void)  loginButton:(FBSDKLoginButton *)loginButton
 didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
@@ -61,9 +55,11 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                  if (!error) {
 //                     NSLog(@"fetched user:%@", result);
                      
+                     // Retrieve wanted Facebook Data to Parse Cloud
+                        // Users Full Name
                      user[@"fullname"] = result[@"name"];
                      
-                     // Profile Picture
+                        // Profile Picture
                      NSDictionary *resultPicture = result[@"picture"];
                      NSDictionary *resultPicData = resultPicture[@"data"];
                      NSURL *resultPicDataUrl = resultPicData[@"url"];
@@ -74,11 +70,12 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                              // The object has been saved.
                              NSLog(@"Saved to Parse.");
                              
-                             TodayPicVC *todayPicVC = [[TodayPicVC alloc]init];
+                             // Present next View Controller
+                             TestVC *todayPicVC = [[TestVC alloc]init];
                              [self presentViewController:todayPicVC animated:YES completion:nil];
                              
                          } else {
-                             // There was a problem, check error.description
+                             // There was a problem, check error.
                              NSLog(@"%@", error.description);
                          }
                      }];

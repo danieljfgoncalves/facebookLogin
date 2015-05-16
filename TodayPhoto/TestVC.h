@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TodayPicVC : UIViewController
+@interface TestVC : UIViewController
 
 @end
