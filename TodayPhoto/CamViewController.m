@@ -7,6 +7,7 @@
 //
 
 #import "CamViewController.h"
+#import <Parse/Parse.h>
 
 @interface CamViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -41,10 +42,21 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
 //    NSLog(@"%@", info);
-    self.capturedImage = info[@"UIImagePickerControllerOriginalImage"];
-    NSLog(@"%@", self.capturedImage);
+    
+    // Send image data to Parse Cloud
+    NSData *capturedImageData = UIImageJPEGRepresentation(info[@"UIImagePickerControllerOriginalImage"], 0.8);
+    PFFile *capImagePFFile = [PFFile fileWithName:@"capturedImage" data:capturedImageData];
+    PFUser *currentUser = [PFUser currentUser];
+    currentUser[@"todaysPic"] = capImagePFFile;
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"Captured image saved to Parse.");
+        } else {
+            NSLog(@"%@", error.description);
+        }
+    }];
+    
     self.testVC = [[TestVC alloc]init];
-    self.testVC.capturedImage = self.capturedImage;
     [self presentViewController:self.testVC animated:YES completion:nil];
     
 }

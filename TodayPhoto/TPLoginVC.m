@@ -83,7 +83,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                      [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                          if (succeeded) {
                              // The object has been saved.
-                             NSLog(@"Saved to Parse.");
+                             NSLog(@" fullname & profile picture saved to Parse.");
                              
                              // Present next View Controller
                              self.camVC = [[CamViewController alloc]init];

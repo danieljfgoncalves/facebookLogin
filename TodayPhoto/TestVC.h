@@ -12,7 +12,5 @@
 
 // Properties
 
-@property (strong, nonatomic)UIImage *capturedImage;
-
 
 @end
