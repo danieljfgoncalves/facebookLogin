@@ -48,13 +48,14 @@
     PFFile *capImagePFFile = [PFFile fileWithName:@"capturedImage" data:capturedImageData];
     PFUser *currentUser = [PFUser currentUser];
     currentUser[@"todaysPic"] = capImagePFFile;
-    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [currentUser save]; /*saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"Captured image saved to Parse.");
         } else {
             NSLog(@"%@", error.description);
         }
-    }];
+    }]; */
+
     
     self.testVC = [[TestVC alloc]init];
     [self presentViewController:self.testVC animated:YES completion:nil];
